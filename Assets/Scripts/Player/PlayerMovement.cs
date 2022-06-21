@@ -96,5 +96,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         m_trailRenderer.emitting = false;
+
     }
 }

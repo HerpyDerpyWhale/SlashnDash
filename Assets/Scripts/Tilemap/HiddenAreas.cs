@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class HiddenAreas : MonoBehaviour
 {
     private Tilemap m_tilemap;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +17,7 @@ public class HiddenAreas : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            m_tilemap.color = new Color(1, 1, 1, 0);
+            StartCoroutine(FadeOut());
         }
     }
 
@@ -25,9 +25,30 @@ public class HiddenAreas : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            m_tilemap.color = new Color(1, 1, 1, 1);
-
+            StartCoroutine(FadeIn());
         }
     }
 
+    IEnumerator FadeOut()
+    {
+        Color c = m_tilemap.color;
+        for (float alpha = 1f; alpha >= 0; alpha -= 0.1f)
+        {
+            c.a = alpha;
+            m_tilemap.color = c;
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    IEnumerator FadeIn()
+    {
+        Color c = m_tilemap.color;
+
+        while (c.a < 1)
+        {
+            c.a += 0.1f;
+            m_tilemap.color = c;
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
 }
