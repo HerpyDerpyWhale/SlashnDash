@@ -13,6 +13,8 @@ public class SpeedRead : MonoBehaviour
     Animator playerAnimator;
     SpriteRenderer sr;
 
+
+
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -55,4 +57,6 @@ public class SpeedRead : MonoBehaviour
     {
         
     }
+
+
 }

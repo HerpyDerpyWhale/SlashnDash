@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool m_jumpInput;
     public bool m_canDash = true;
+    public bool m_playerHidden = false;
 
     private Rigidbody2D m_rb;
     public ParticleSystem m_particleSystem;
@@ -98,5 +99,9 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         m_trailRenderer.emitting = false;
+        if (collision.gameObject.name == "foreground")
+        {
+            Debug.Log("Behind Foreground");
+        }
     }
 }

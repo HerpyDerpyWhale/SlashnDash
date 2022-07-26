@@ -1,36 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyAI : MonoBehaviour
 {
     public float m_minimumX;
     public float m_maximumX;
+    public float m_enemyMovementSpeed;
+    public float m_alertTime = 3;
+    private float m_alertTimer;
 
     private bool m_playerNear;
     public bool m_playerSeen;
 
     public GameObject player;
+    public GameObject m_alertIcons;
+    public Image m_alertIcon;
 
     private Rigidbody2D m_rb;
 
     private Vector2 m_movingDirection;
+    private PlayerMovement m_pm;
+    private CheckpointSystem m_checkpointSystem;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        m_pm = player.GetComponent<PlayerMovement>();
+        m_checkpointSystem = player.GetComponent<CheckpointSystem>();
         m_rb = GetComponent<Rigidbody2D>();
-
+        Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
         m_movingDirection = Vector2.left;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (m_alertTimer <= 0)
+        {
+            m_alertIcons.SetActive(false);
+        }
         if (m_playerNear)
         {
-            if (!Physics2D.Linecast(transform.position, player.transform.position, 0))
+            if (!Physics2D.Linecast(transform.position, player.transform.position, 0) && !m_pm.m_playerHidden)
             {
                 m_playerSeen = true;
             }
@@ -42,7 +56,12 @@ public class EnemyAI : MonoBehaviour
         }
         if (!m_playerSeen)
         {
-            m_rb.velocity = m_movingDirection;
+            if (m_alertTimer > 0)
+            {
+                m_alertTimer -= Time.deltaTime;
+                m_alertIcon.fillAmount = m_alertTimer / m_alertTime;
+            }
+            m_rb.velocity = m_enemyMovementSpeed * m_movingDirection;
             if (transform.position.x < m_minimumX)
             {
                 m_movingDirection = Vector2.right;
@@ -54,6 +73,17 @@ public class EnemyAI : MonoBehaviour
                 gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
         }
+        else
+        {
+            m_alertIcons.SetActive(true);
+            m_alertTimer += Time.deltaTime;
+            m_alertIcon.fillAmount = m_alertTimer/m_alertTime;
+            if (m_alertTimer >= m_alertTime)
+            {
+                m_alertTimer = 0;
+                m_checkpointSystem.Respawn();
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -61,6 +91,10 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {   
             m_playerNear = true;
+        }
+        else
+        {
+            Physics2D.IgnoreCollision(collision.GetComponent<BoxCollider2D>(), GetComponent<PolygonCollider2D>());
         }
     }
 
@@ -70,6 +104,14 @@ public class EnemyAI : MonoBehaviour
         {
             m_playerNear = false;
             m_playerSeen = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+
         }
     }
 }
