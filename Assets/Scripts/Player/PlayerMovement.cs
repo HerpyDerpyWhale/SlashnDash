@@ -10,13 +10,14 @@ public class PlayerMovement : MonoBehaviour
     public float m_dashForce;
     public float m_hinput;
     public float m_groundCheckHeight;
+    public float m_dashCooldown;
 
     private Vector2 m_mousePosition;
     private Vector2 m_mouseDirection;
     private Vector2 m_dashSpeed;
 
     private bool m_jumpInput;
-    private bool m_canDash = true;
+    public bool m_canDash = true;
 
     private Rigidbody2D m_rb;
     public ParticleSystem m_particleSystem;
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
+        m_dashCooldown = 1.5f;
     }
 
     // Update is called once per frame
@@ -50,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         m_rb.AddForce(Vector2.right * m_moveSpeed * m_hinput, ForceMode2D.Force);
-        RaycastHit2D ground = Physics2D.Raycast(transform.position, Vector2.down, 1.3f);
+        RaycastHit2D ground = Physics2D.Raycast(transform.position, Vector2.down, m_groundCheckHeight);
         if (ground.collider != null)
         {
             if (m_jumpInput)
@@ -80,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
             }
         }
-        Invoke("Delay", 1.5f);
+        Invoke("Delay", m_dashCooldown);
     }
     
     public static float Clamp(float value)
@@ -96,6 +98,5 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         m_trailRenderer.emitting = false;
-
     }
 }
