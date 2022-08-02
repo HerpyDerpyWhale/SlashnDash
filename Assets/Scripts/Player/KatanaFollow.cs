@@ -7,6 +7,7 @@ public class KatanaFollow : MonoBehaviour
     public float offset;
     private float rotation_z;
     private SpriteRenderer m_sr;
+    public SpriteRenderer m_slashsr;
     
 
     // Start is called before the first frame update
@@ -25,10 +26,12 @@ public class KatanaFollow : MonoBehaviour
         if (rotation_z >= 90 || rotation_z <= -90)
         {
             m_sr.flipY = true;
+            m_slashsr.flipY = true;
         }
         else
         {
             m_sr.flipY = false;
+            m_slashsr.flipY = false;
         }
     }
 }

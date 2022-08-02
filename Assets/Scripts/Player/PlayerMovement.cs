@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D m_rb;
     public ParticleSystem m_particleSystem;
     public TrailRenderer m_trailRenderer;
+    public Animator m_slashAnimator;
     
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     {
         m_hinput = Input.GetAxis("Horizontal");
         if (Input.GetButtonDown("Fire1"))
+        {
+            m_slashAnimator.SetTrigger("Slash");
+        }
+        if (Input.GetButtonDown("Fire2"))
         {
             if (m_canDash)
             {

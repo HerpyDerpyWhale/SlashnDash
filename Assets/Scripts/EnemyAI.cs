@@ -23,6 +23,7 @@ public class EnemyAI : MonoBehaviour
     private Vector2 m_movingDirection;
     private PlayerMovement m_pm;
     private CheckpointSystem m_checkpointSystem;
+    private Animator m_animator;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class EnemyAI : MonoBehaviour
         m_pm = player.GetComponent<PlayerMovement>();
         m_checkpointSystem = player.GetComponent<CheckpointSystem>();
         m_rb = GetComponent<Rigidbody2D>();
+        m_animator = GetComponent<Animator>();
         Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
         m_movingDirection = Vector2.left;
     }
@@ -56,12 +58,13 @@ public class EnemyAI : MonoBehaviour
         }
         if (!m_playerSeen)
         {
+            m_animator.SetBool("StandingStill", false);
+            m_rb.velocity = m_enemyMovementSpeed * m_movingDirection;
             if (m_alertTimer > 0)
             {
                 m_alertTimer -= Time.deltaTime;
                 m_alertIcon.fillAmount = m_alertTimer / m_alertTime;
-            }
-            m_rb.velocity = m_enemyMovementSpeed * m_movingDirection;
+            }  
             if (transform.position.x < m_minimumX)
             {
                 m_movingDirection = Vector2.right;
@@ -75,6 +78,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
+            m_animator.SetBool("StandingStill", true);
             m_alertIcons.SetActive(true);
             m_alertTimer += Time.deltaTime;
             m_alertIcon.fillAmount = m_alertTimer/m_alertTime;
