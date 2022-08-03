@@ -8,6 +8,7 @@ public class AbilityActivationHandler : MonoBehaviour
     public GameObject katana;
     public GameObject cooldownIcon;
     public PlayerMovement playerMovement;
+    public CheckpointSystem checkpointSystem;
 
 
     // Start is called before the first frame update
@@ -27,6 +28,7 @@ public class AbilityActivationHandler : MonoBehaviour
             cooldownIcon.SetActive(true);
             playerMovement.m_canDash = true;
             collision.gameObject.SetActive(false);
+            checkpointSystem.ObtainedKatana();
         }
     }
 }

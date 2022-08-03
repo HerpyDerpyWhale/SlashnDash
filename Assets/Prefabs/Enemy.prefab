@@ -201,9 +201,10 @@ GameObject:
   - component: {fileID: 1349293365605940785}
   - component: {fileID: 1349293365605940784}
   - component: {fileID: 1349293365605940791}
+  - component: {fileID: 948719013}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,14 +362,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8975209e09d81f947a4f2c58a5138573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_minimumX: 49
-  m_maximumX: 58
+  m_minimumX: -1.4
+  m_maximumX: 4.4
   m_enemyMovementSpeed: 3
   m_alertTime: 3
   m_playerSeen: 0
   player: {fileID: 0}
   m_alertIcons: {fileID: 1349293364997617737}
   m_alertIcon: {fileID: 1349293364887561315}
+--- !u!95 &948719013
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349293365605940781}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: deab7316a111e7f4498027a10f3aa578, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1349293365621962977
 GameObject:
   m_ObjectHideFlags: 0

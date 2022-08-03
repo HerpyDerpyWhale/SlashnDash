@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 784283601}
   - component: {fileID: 784283600}
   - component: {fileID: 784283602}
+  - component: {fileID: 755999978}
   m_Layer: 0
   m_Name: slash
   m_TagString: Untagged
@@ -140,6 +141,22 @@ PolygonCollider2D:
       - {x: 2.0597599, y: 0.7348646}
       - {x: 1.7529827, y: 0.9693318}
       - {x: 0.5379814, y: 1.8333334}
+--- !u!114 &755999978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784283598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54986f6b9bdecaa4799c7d4a0d082626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_slashAnimator: {fileID: 0}
+  m_slashCollider: {fileID: 0}
+  m_playerMovement: {fileID: 0}
+  m_attacking: 0
 --- !u!1 &7141336674703247156
 GameObject:
   m_ObjectHideFlags: 0
@@ -5299,11 +5316,11 @@ MonoBehaviour:
   m_hinput: 0
   m_groundCheckHeight: 0.6
   m_dashCooldown: 0
+  m_knockbackForce: 0
   m_canDash: 1
   m_playerHidden: 0
   m_particleSystem: {fileID: 7141336675587061998}
   m_trailRenderer: {fileID: 7141336675688109021}
-  m_slashAnimator: {fileID: 784283600}
 --- !u!50 &7141336675839010189
 Rigidbody2D:
   serializedVersion: 4
@@ -5478,6 +5495,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9152e4c1442eaa040bb5ab364bc7db2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasDied: 0
+  katanaRigidbody2D: {fileID: 0}
+  katana: {fileID: 7141336674703247156}
 --- !u!114 &660153275
 MonoBehaviour:
   m_ObjectHideFlags: 0

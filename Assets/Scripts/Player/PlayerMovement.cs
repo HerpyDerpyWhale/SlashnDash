@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float m_hinput;
     public float m_groundCheckHeight;
     public float m_dashCooldown;
+    public float m_knockbackForce;
 
     private Vector2 m_mousePosition;
     private Vector2 m_mouseDirection;
@@ -19,27 +20,24 @@ public class PlayerMovement : MonoBehaviour
     private bool m_jumpInput;
     public bool m_canDash = true;
     public bool m_playerHidden = false;
+    
 
     private Rigidbody2D m_rb;
     public ParticleSystem m_particleSystem;
     public TrailRenderer m_trailRenderer;
-    public Animator m_slashAnimator;
+    
     
     // Start is called before the first frame update
     void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
-        m_dashCooldown = 1.5f;
     }
 
     // Update is called once per frame
     private void Update()
     {
         m_hinput = Input.GetAxis("Horizontal");
-        if (Input.GetButtonDown("Fire1"))
-        {
-            m_slashAnimator.SetTrigger("Slash");
-        }
+        
         if (Input.GetButtonDown("Fire2"))
         {
             if (m_canDash)
@@ -94,6 +92,11 @@ public class PlayerMovement : MonoBehaviour
     public static float Clamp(float value)
     {
         return (value < -1.5f) ? -1.5f : (value > 1.5f) ? 1.5f : value;
+    }
+
+    public void Knockback(Vector3 direction)
+    {
+        m_rb.AddForce(direction.normalized * m_knockbackForce, ForceMode2D.Impulse);
     }
 
     private void Delay()

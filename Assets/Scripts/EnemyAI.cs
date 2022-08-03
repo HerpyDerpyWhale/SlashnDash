@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
 
     private Rigidbody2D m_rb;
 
-    private Vector2 m_movingDirection;
+    private Vector2 m_movingDirection = Vector2.left;
     private PlayerMovement m_pm;
     private CheckpointSystem m_checkpointSystem;
     private Animator m_animator;
@@ -34,7 +34,6 @@ public class EnemyAI : MonoBehaviour
         m_rb = GetComponent<Rigidbody2D>();
         m_animator = GetComponent<Animator>();
         Physics2D.IgnoreCollision(player.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
-        m_movingDirection = Vector2.left;
     }
 
     // Update is called once per frame
@@ -84,8 +83,9 @@ public class EnemyAI : MonoBehaviour
             m_alertIcon.fillAmount = m_alertTimer/m_alertTime;
             if (m_alertTimer >= m_alertTime)
             {
+                m_animator.SetTrigger("Attack");
                 m_alertTimer = 0;
-                m_checkpointSystem.Respawn();
+                m_checkpointSystem.Death();
             }
         }
     }
@@ -111,11 +111,21 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void Death()
     {
-        if (collision.gameObject.tag == "Player")
-        {
+        m_alertIcons.SetActive(false);
+        m_animator.SetBool("Dead", true);
+        Invoke("Disable", 0.35f);
+    }
 
-        }
+    private void Disable()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        GameManager gameManager = GameObject.FindObjectOfType<GameManager>();
+        gameManager.ChangeTime(2);
     }
 }

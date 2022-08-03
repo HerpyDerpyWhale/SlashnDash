@@ -23,6 +23,27 @@ TextureImporter:
   - first:
       213: -3195334159281410377
     second: Sprite Sheet - Blue Idle_6
+  - first:
+      213: -6204705742361097884
+    second: Sprite Sheet - Blue Idle_7
+  - first:
+      213: 6274420438068679882
+    second: Sprite Sheet - Blue Idle_8
+  - first:
+      213: 6683512102415071097
+    second: Sprite Sheet - Blue Idle_9
+  - first:
+      213: -2846025542962139451
+    second: Sprite Sheet - Blue Idle_10
+  - first:
+      213: -5058755878140976903
+    second: Sprite Sheet - Blue Idle_11
+  - first:
+      213: -4469873182356935967
+    second: Sprite Sheet - Blue Idle_12
+  - first:
+      213: -8337127237099836011
+    second: Sprite Sheet - Blue Idle_13
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
