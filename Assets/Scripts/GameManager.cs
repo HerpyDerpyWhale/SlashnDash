@@ -10,11 +10,12 @@ public class GameManager : MonoBehaviour
     public HighScoreManager m_HighScores;
 
     public static float m_timer;
-    public static bool m_finishedGame;
-    public float m_lastFinishedTime;
+    public static bool m_finishedGame = false;
+    public static float m_lastFinishedTime;
 
     public GameObject m_MainMenu;
     public GameObject m_HighScorePanel;
+    public GameObject m_EndGamePanel;
     public Text m_HighScoresText;
     public Button m_HighScoreButton;
     public Text m_recentTimeText;
@@ -28,20 +29,25 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        m_MainMenu.SetActive(true);
         m_HighScorePanel.SetActive(false);
+        m_MainMenu.SetActive(!m_finishedGame);
+        m_EndGamePanel.SetActive(m_finishedGame);
         float minutes = Mathf.FloorToInt(m_lastFinishedTime / 60);
         float seconds = Mathf.FloorToInt(m_lastFinishedTime% 60);
         m_recentTimeText.text = "You finished in " + string.Format("{0:00}:{1:00}", minutes, seconds);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_timer += Time.deltaTime;
-        float minutes = Mathf.FloorToInt(m_timer / 60);
-        float seconds = Mathf.FloorToInt(m_timer % 60);
-        m_timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        if (!m_finishedGame)
+        {
+            m_timer += Time.deltaTime;
+            float minutes = Mathf.FloorToInt(m_timer / 60);
+            float seconds = Mathf.FloorToInt(m_timer % 60);
+            m_timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -66,6 +72,7 @@ public class GameManager : MonoBehaviour
     {
         m_MainMenu.SetActive(true);
         m_HighScorePanel.SetActive(false);
+        m_EndGamePanel.SetActive(false);
     }
 
     public void OnMainMenu()
@@ -89,5 +96,6 @@ public class GameManager : MonoBehaviour
     public void ResetTime()
     {
         m_timer = 0;
+        m_finishedGame = false;
     }
 }

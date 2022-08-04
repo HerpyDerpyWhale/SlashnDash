@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour
 
     private bool m_playerNear;
     public bool m_playerSeen;
+    private bool m_isDead;
 
     public GameObject player;
     public GameObject m_alertIcons;
@@ -75,7 +76,7 @@ public class EnemyAI : MonoBehaviour
                 gameObject.transform.localScale = new Vector3(1, 1, 1);
             }
         }
-        else
+        else if (!m_isDead)
         {
             m_animator.SetBool("StandingStill", true);
             m_alertIcons.SetActive(true);
@@ -114,6 +115,7 @@ public class EnemyAI : MonoBehaviour
     public void Death()
     {
         m_alertIcons.SetActive(false);
+        m_isDead = true;
         m_animator.SetBool("Dead", true);
         Invoke("Disable", 0.35f);
     }

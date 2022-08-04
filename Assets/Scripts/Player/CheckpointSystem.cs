@@ -11,10 +11,12 @@ public class CheckpointSystem : MonoBehaviour
     public bool hasKatana = false;
     public Rigidbody2D katanaRigidbody2D;
     public GameObject katana;
+    public SpriteRenderer slashSprite;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        slashSprite = katana.transform.Find("slash").GetComponent<SpriteRenderer>();
         Scene currentscene = SceneManager.GetActiveScene();
         if (currentscene.name != "Tutorial")
         {
@@ -47,6 +49,7 @@ public class CheckpointSystem : MonoBehaviour
     {
         animator.ResetTrigger("Death");
         gameObject.transform.position = latestCheckpoint;
+        slashSprite.sprite = null;
         if (hasKatana)
         {
             katana.SetActive(true);

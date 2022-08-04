@@ -347,8 +347,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -8, y: 4.5277977}
-      - {x: -8, y: -2.23239}
+    - - {x: -7.8846245, y: 2.1241102}
+      - {x: -7.9230843, y: -1.4055219}
       - {x: 0, y: 0}
 --- !u!114 &1349293365605940791
 MonoBehaviour:
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_minimumX: -1.4
   m_maximumX: 4.4
   m_enemyMovementSpeed: 3
-  m_alertTime: 3
+  m_alertTime: 2
   m_playerSeen: 0
   player: {fileID: 0}
   m_alertIcons: {fileID: 1349293364997617737}
