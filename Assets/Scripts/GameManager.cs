@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,12 +11,28 @@ public class GameManager : MonoBehaviour
 
     public static float m_timer;
     public static bool m_finishedGame;
+    public float m_lastFinishedTime;
 
-    public Text timerText;
+    public GameObject m_MainMenu;
+    public GameObject m_HighScorePanel;
+    public Text m_HighScoresText;
+    public Button m_HighScoreButton;
+    public Text m_recentTimeText;
+
+    public Text m_timerText;
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        m_MainMenu.SetActive(true);
+        m_HighScorePanel.SetActive(false);
+        float minutes = Mathf.FloorToInt(m_lastFinishedTime / 60);
+        float seconds = Mathf.FloorToInt(m_lastFinishedTime% 60);
+        m_recentTimeText.text = "You finished in " + string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     // Update is called once per frame
@@ -24,11 +41,36 @@ public class GameManager : MonoBehaviour
         m_timer += Time.deltaTime;
         float minutes = Mathf.FloorToInt(m_timer / 60);
         float seconds = Mathf.FloorToInt(m_timer % 60);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        m_timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
+    }
+
+    public void OnHighScores()
+    {
+        m_MainMenu.SetActive(false);
+        m_HighScorePanel.SetActive(true);
+
+        string text = "";
+        for (int i = 0; i < m_HighScores.scores.Length; i++)
+        {
+            int seconds = m_HighScores.scores[i];
+            text += string.Format("{0:D2}:{1:D2}\n", (seconds / 60), (seconds % 60));
+        }
+        m_HighScoresText.text = text;
+    }
+
+    public void OnBack()
+    {
+        m_MainMenu.SetActive(true);
+        m_HighScorePanel.SetActive(false);
+    }
+
+    public void OnMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void ChangeTime(float change)
@@ -38,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveTime()
     {
+        m_lastFinishedTime = m_timer;
         m_HighScores.AddScore(Mathf.RoundToInt(m_timer));
         m_HighScores.SaveScoresToFile();
         m_finishedGame = true;

@@ -79127,6 +79127,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7141336675839010188, guid: 8ae959a2e1abc1f4d80b0c1b766c1cd2, type: 3}
+      propertyPath: m_dashCooldown
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7141336675839010188, guid: 8ae959a2e1abc1f4d80b0c1b766c1cd2, type: 3}
+      propertyPath: m_knockbackForce
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ae959a2e1abc1f4d80b0c1b766c1cd2, type: 3}
 --- !u!1 &1874946515
@@ -90391,6 +90399,10 @@ PrefabInstance:
       objectReference: {fileID: 1692238650}
     - target: {fileID: 2577917263100855442, guid: 3d7b7cdc9209dee4db7bf199f5fa02c4, type: 3}
       propertyPath: timer_text
+      value: 
+      objectReference: {fileID: 1692238650}
+    - target: {fileID: 2577917263100855442, guid: 3d7b7cdc9209dee4db7bf199f5fa02c4, type: 3}
+      propertyPath: m_timerText
       value: 
       objectReference: {fileID: 1692238650}
     - target: {fileID: 2577917263100855443, guid: 3d7b7cdc9209dee4db7bf199f5fa02c4, type: 3}
